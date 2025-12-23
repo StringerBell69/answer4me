@@ -193,6 +193,10 @@ export function Pricing({
                   )}
                   onClick={(e) => {
                      if (plan.href === '#') e.preventDefault();
+                     else if (plan.href.startsWith('#')) {
+                       e.preventDefault();
+                       document.getElementById(plan.href.substring(1))?.scrollIntoView({ behavior: 'smooth' });
+                     }
                      else window.location.href = plan.href;
                   }}
                 >
