@@ -186,12 +186,9 @@ export function Demo() {
                  </div>
             </div>
             <h3 className="text-2xl font-bold mb-4">Convaincu par la démonstration ?</h3>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="flex justify-center">
                 <Button size="lg" className="px-8 shadow-md" onClick={() => window.location.href = "#contact"}>
-                    Réserver ma place
-                </Button>
-                <Button size="lg" variant="outline" onClick={() => window.location.href = "#how-it-works"}>
-                    Voir comment ça marche
+                    Rejoindre la liste d'attente
                 </Button>
             </div>
         </div>

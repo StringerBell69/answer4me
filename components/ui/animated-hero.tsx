@@ -30,12 +30,12 @@ function Hero() {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex gap-8 py-20 lg:py-32 items-center justify-center flex-col text-center">
-          <div>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-3">
             <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80 uppercase tracking-wide">
-              Nouveau
+              Le Saviez-vous ?
             </div>
-            <span className="ml-3 text-sm text-muted-foreground font-medium">
-              Découvrez la puissance de la voix native
+            <span className="text-sm text-muted-foreground font-medium">
+              <span className="font-bold text-primary">72% des clients</span> préfèrent résoudre leurs problèmes par téléphone plutôt que par chat.
             </span>
           </div>
           
@@ -82,7 +82,7 @@ function Hero() {
             </Button>
           </div>
 
-          <div className="mt-8 flex items-center gap-4 text-sm text-muted-foreground">
+          {/* <div className="mt-8 flex items-center gap-4 text-sm text-muted-foreground">
              <div className="flex -space-x-2">
                 {[1,2,3].map(i => (
                     <div key={i} className={`w-8 h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden`}>
@@ -91,7 +91,7 @@ function Hero() {
                 ))}
              </div>
              <p>Déjà utilisé par +500 entreprises</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -66,7 +66,7 @@ export function HowItWorks() {
 
             <div className="mt-10">
                 <Button size="lg" className="w-full md:w-auto gap-2 shadow-lg shadow-primary/20" onClick={() => window.location.href = "#contact"}>
-                    Réserver ma place <ArrowRight className="w-4 h-4" />
+                    Rejoindre la liste d'attente <ArrowRight className="w-4 h-4" />
                 </Button>
                 <p className="mt-2 text-xs text-muted-foreground pl-1">Aucun paiement immédiat requis</p>
             </div>
