@@ -89,6 +89,8 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [sector, setSector] = useState("");
   const [problem, setProblem] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,10 +99,29 @@ export default function App() {
     }
   }
 
-  const handleStep2Submit = (e: React.FormEvent) => {
+  const handleStep2Submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStep(2);
-    // Ici, envoi final des données au backend
+    setIsLoading(true);
+    setError("");
+    
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/waitlist`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, sector, problem }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'inscription');
+      }
+      
+      setStep(2);
+    } catch (err) {
+      setError('Une erreur est survenue. Veuillez réessayer.');
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const resetForm = () => {
@@ -108,6 +129,7 @@ export default function App() {
     setEmail("");
     setSector("");
     setProblem("");
+    setError("");
   }
 
   return (
@@ -208,8 +230,13 @@ export default function App() {
                                 />
                             </div>
 
-                            <Button type="submit" size="lg" className="w-full h-12 text-base shadow-md">
-                                Valider mon inscription <ArrowRight className="w-4 h-4 ml-2" />
+                            {error && (
+                              <p className="text-sm text-red-500 bg-red-50 p-3 rounded-lg">{error}</p>
+                            )}
+
+                            <Button type="submit" size="lg" className="w-full h-12 text-base shadow-md" disabled={isLoading}>
+                                {isLoading ? 'Envoi en cours...' : 'Valider mon inscription'} 
+                                {!isLoading && <ArrowRight className="w-4 h-4 ml-2" />}
                             </Button>
                         </form>
                      </div>
