@@ -91,16 +91,6 @@ export default function App() {
   const [problem, setProblem] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [waitlistCount, setWaitlistCount] = useState(13);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/waitlist/count`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.count) setWaitlistCount(data.count);
-      })
-      .catch(() => {}); // Silently fail, keep default 13
-  }, [step]); // Refresh on step change (after inscription)
 
   const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -141,6 +131,16 @@ export default function App() {
     setProblem("");
     setError("");
   }
+  const [waitlistCount, setWaitlistCount] = useState(13);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/waitlist/count`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.count) setWaitlistCount(data.count);
+      })
+      .catch(() => {}); // Silently fail, keep default 13
+  }, [step]);
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
