@@ -74,6 +74,24 @@ const server = Bun.serve({
         );
       }
     }
+
+    if (url.pathname === '/api/waitlist/count' && req.method === 'GET') {
+      try {
+        const result = await pool.query('SELECT COUNT(*) FROM waitlist');
+        const realCount = parseInt(result.rows[0].count, 10);
+        const displayCount = 13 + realCount; // 13 fictives + vraies inscriptions
+        return new Response(
+          JSON.stringify({ count: displayCount, real: realCount }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      } catch (error) {
+        console.error('❌ Erreur:', error);
+        return new Response(
+          JSON.stringify({ error: 'Erreur serveur' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    }
     
     return new Response('Not Found', { status: 404, headers: corsHeaders });
   },

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Hero } from "@/components/ui/animated-hero";
 import { Pricing } from "@/components/ui/pricing";
 import { Demo } from "@/components/ui/demo";
@@ -91,6 +91,16 @@ export default function App() {
   const [problem, setProblem] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [waitlistCount, setWaitlistCount] = useState(13);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/waitlist/count`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.count) setWaitlistCount(data.count);
+      })
+      .catch(() => {}); // Silently fail, keep default 13
+  }, [step]); // Refresh on step change (after inscription)
 
   const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -168,7 +178,7 @@ export default function App() {
                        <p className="text-muted-foreground mb-8 text-lg">
                           Nous ouvrons les accès progressivement pour garantir une qualité de service irréprochable. 
                           <br className="hidden md:block"/>
-                          Rejoignez les <span className="font-bold text-primary">13 entreprises</span> en file d'attente.
+                          Rejoignez les <span className="font-bold text-primary">{waitlistCount} entreprises</span> en file d'attente.
                        </p>
                        
                        <form onSubmit={handleStep1Submit} className="flex flex-col gap-4 max-w-md mx-auto">
